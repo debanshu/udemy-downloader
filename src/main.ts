@@ -1,27 +1,28 @@
-import * as config from "config";
 import * as path from "path";
 import { Chromeless } from "chromeless";
 import * as cheerio from "cheerio";
+import { SSOLogin } from "./login";
 
 async function run(): Promise<void> {
-    const chromeless: Chromeless<{}> = new Chromeless(
+    let chromeless: Chromeless<any> = new Chromeless(
         {
             scrollBeforeClick: true,
             implicitWait: true,
             viewport: { width: 1920, height: 1024 }
         });
 
-    const html:string = await chromeless
-        .goto(config.get("Udemy.loginPage"))
-        .type(config.get("Udemy.username"), "input[name=\"USER\"]")
-        .type(config.get("Udemy.password"), "input[name=\"PASSWORD\"]")
-        .click(".ButtonSm")
-        .wait(".dropdown--mycourses")
-        .click(".dropdown--mycourses")
-        .wait(".card--learning__details")
-        .html();
+    // login to the page
+    chromeless = SSOLogin(chromeless);
 
-    const $:CheerioStatic = cheerio.load(html);
+    // goto course list page
+    chromeless.click(".dropdown--mycourses")
+                    .wait(".card--learning__details");
+
+    // get html of current page
+    let html: string = await chromeless.html();
+
+    // load html of current page into cheerio object
+    const $: CheerioStatic = cheerio.load(html);
     $(".card--learning__details").each((idx, el) => console.log(el.attribs.href));
 
     await chromeless.end();

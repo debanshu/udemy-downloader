@@ -8,28 +8,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const config = require("config");
 const chromeless_1 = require("chromeless");
 const cheerio = require("cheerio");
+const login_1 = require("./login");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        const chromeless = new chromeless_1.Chromeless({
+        let chromeless = new chromeless_1.Chromeless({
             scrollBeforeClick: true,
             implicitWait: true,
             viewport: { width: 1920, height: 1024 }
         });
-        const html = yield chromeless
-            .goto(config.get("Udemy.loginPage"))
-            .type(config.get("Udemy.username"), "input[name=\"USER\"]")
-            .type(config.get("Udemy.password"), "input[name=\"PASSWORD\"]")
-            .click(".ButtonSm")
-            .wait(".dropdown--mycourses")
-            .click(".dropdown--mycourses")
-            .wait(".card--learning__details")
-            .html();
+        // login to the page
+        chromeless = login_1.SSOLogin(chromeless);
+        console.log(chromeless);
+        // goto course list page
+        yield chromeless.click(".dropdown--mycourses")
+            .wait(".card--learning__details");
+        // get html of current page
+        let html = yield chromeless.html();
+        // load html of current page into cheerio object
         const $ = cheerio.load(html);
         $(".card--learning__details").each((idx, el) => console.log(el.attribs.href));
         yield chromeless.end();
     });
 }
 run().catch(console.error.bind(console));
+//# sourceMappingURL=main.js.map
