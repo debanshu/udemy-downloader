@@ -1,7 +1,7 @@
 {
   "name": "udemy-downloader",
   "version": "1.0.0",
-  "description": "To download courses from Udemy/Udemy-for-business",
+  "description": "An extensible tool to download courses from Udemy/Udemy-for-business.",
   "main": "src/main.ts",
   "scripts": {
     "start": "tsc && node dist/main.js",
