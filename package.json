@@ -1,0 +1,31 @@
+{
+  "name": "udemy-downloader",
+  "version": "1.0.0",
+  "description": "To download courses from Udemy/Udemy-for-business",
+  "main": "src/main.ts",
+  "scripts": {
+    "start": "tsc && node dist/main.js",
+    "tsc": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/debanshu/udemy-downloader.git"
+  },
+  "author": "Debanshu Sinha",
+  "license": "MIT",
+  "dependencies": {
+    "@types/cheerio": "^0.22.7",
+    "@types/config": "0.0.33",
+    "@types/node": "^8.5.2",
+    "cheerio": "^1.0.0-rc.2",
+    "chromeless": "^1.4.0",
+    "config": "^1.29.0",
+    "mt-files-downloader": "^0.2.5"
+  },
+  "devDependencies": {
+    "eslint": "^4.14.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.2"
+  }
+}

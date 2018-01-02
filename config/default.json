@@ -1,0 +1,9 @@
+{
+    // udemy module configs
+    "Udemy": {
+        "root": "", //udemy root
+        "loginPage": "", //loginpage udemy url/udemy for business
+        "username": "",
+        "password": ""
+    }
+}

@@ -57,3 +57,13 @@ typings/
 # dotenv environment variables file
 .env
 
+#prod config file
+config/development.json
+
+#screenshots
+screenshots/
+
+#vscode settings
+.vscode
+
+
